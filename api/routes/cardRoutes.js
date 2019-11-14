@@ -3,7 +3,7 @@ const cardBuilder = require('../controllers/cardController');
 module.exports = app => {
     app
         .route('/cards')
-        
+        .get(cardBuilder.list_all_cards)
         .post(cardBuilder.create_a_card);
     
     app

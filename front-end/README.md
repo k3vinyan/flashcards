@@ -15,11 +15,14 @@ npm run serve
 npm run build
 ```
 
+<<<<<<< HEAD
 ### Run your tests
 ```
 npm run test
 ```
 
+=======
+>>>>>>> origin/laptop
 ### Lints and fixes files
 ```
 npm run lint

@@ -10,7 +10,7 @@ const routes = require('./api/routes/cardRoutes');
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-    'mongodb+srv://k3vinyan:'+ process.env.DB_PW +'@cluster-card-44zld.mongodb.net/test?retryWrites=true&w=majority',
+    'mongodb+srv://k3vinyan:'+ process.env.DB_PW + '@cluster0-l8nu1.mongodb.net/test?retryWrites=true&w=majority',
     { 
         useNewUrlParser: true,
         useUnifiedTopology: true 
