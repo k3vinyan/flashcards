@@ -4,11 +4,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-<<<<<<< HEAD
-=======
 import 'semantic-ui-css/semantic.css';
 
->>>>>>> origin/laptop
 new Vue({
   router,
   render: h => h(App)

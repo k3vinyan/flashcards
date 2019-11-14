@@ -25,7 +25,7 @@ export const api = {
         const res = await axios.post(baseURL, payload);
         return res.data;
     }),
-    updateWord: handleError(async payload => {
+    updateCard: handleError(async payload => {
         const res = await axios.put(baseURL + payload._id, payload);
         return res.data;
     })
