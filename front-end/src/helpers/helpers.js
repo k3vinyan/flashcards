@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000/cards';
+const baseURL = 'http://localhost:3000/cards/';
 
 const handleError = fn => (...params) => {
     fn(...params).catch(err => {
