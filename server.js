@@ -10,10 +10,14 @@ const routes = require('./api/routes/cardRoutes');
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-    'mongodb+srv://k3vinyan:'+ process.env.DB_PW + '@cluster0-l8nu1.mongodb.net/test?retryWrites=true&w=majority',
+    'mongodb+srv://k3vinyan:' + process.env.DB_PW + '@cluster0-nux1r.mongodb.net/test?retryWrites=true&w=majority',
     { 
         useNewUrlParser: true,
-        useUnifiedTopology: true 
+        useUnifiedTopology: true
+    }, (err, connection) => {
+        if(err) {
+            console.log("mongo connection error: ", err);
+        }
     }
 );
 
