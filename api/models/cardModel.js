@@ -6,7 +6,7 @@ const CardSchema = new Schema({
         type: String,
         required: 'Term is required'
     },
-    defintion: {
+    definition: {
         type: String,
         required: 'definition required'
     }

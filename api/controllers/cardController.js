@@ -36,11 +36,11 @@ exports.update_a_card = (req, res) => {
 };
 
 exports.delete_a_card = (req, res) => {
-    Card.deleteOne({ _id: req.params.wordId}, err => {
+    Card.deleteOne({ _id: req.params.cardId}, err => {
         if(err) res.send(err);
         res.json({
             message: 'Card successfully deleted',
-            _id: req.params.wordId
+            _id: req.params.cardId
         });
     });
 };
