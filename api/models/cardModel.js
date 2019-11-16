@@ -8,7 +8,7 @@ const CardSchema = new Schema({
     },
     defintion: {
         type: String,
-        required: 'defintion required'
+        required: 'definition required'
     }
 }, { collection: 'card' } );
 
