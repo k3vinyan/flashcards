@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Edit Card</h1>
-        <card-form :card="this.card"></card-form>
+        <card-form @createOrUpdate="createOrUpdate" :card="this.card"></card-form>
     </div>
 </template>
 
@@ -18,6 +18,14 @@ export default {
     data: function(){
         return {
             card: {}
+        }
+    },
+    methods: {
+        createOrUpdate: async function() {
+            console.log(this.card)
+            await api.updateCard(this.card); 
+           // alert('Card is updated!');
+
         }
     },
     async mounted() {

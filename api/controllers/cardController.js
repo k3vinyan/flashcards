@@ -25,6 +25,7 @@ exports.read_a_card = (req, res) => {
 };
 
 exports.update_a_card = (req, res) => {
+    console.log("update card: ", req)
     Card.findOneAndUpdate(
         { _id: req.params.cardId },
         req.body,
