@@ -15,8 +15,12 @@
         <td class="center aligned">
           <router-link :to="{ name: 'show', params: { id: card._id}}">Show</router-link>
         </td>
-        <td class="center aligned">Edit</td>
-        <td class="center aligned">Destroy</td>
+        <td class="center aligned">
+          <router-link :to="{ name: 'edit', params: {id: card._id}}">Edit</router-link>
+        </td>
+        <td class="center aligned" @click.prevent="onDestroy(card._id)">
+          <a :href="`/cards/${card._id}`">Destroy</a>
+        </td>
        </tr>
     </table>
   </div>
@@ -31,6 +35,18 @@ export default {
         return {
             allCards: []
         }
+    },
+    methods:  {
+      onDestroy: async function(id) {
+        //api.deleteCard(id)
+
+        const sure = window.confirm('Are you sure you want to delete the card?');
+        if (!sure) return;
+
+        await api.deleteCard(id);
+        const newCards = this.allCards.filter(card => card._id !== id);
+        this.allCards = newCards;
+      }
     },
     async mounted() {
       this.allCards = await api.getCards();
