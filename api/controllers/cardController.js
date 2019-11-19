@@ -12,7 +12,7 @@ exports.create_a_card = (req, res) => {
     const newCard = new Card(req.body);
     newCard.save((err, card) => {
         if(err) res.send(err);
-        console.log(card)
+        //res.json({message: 'Card sucessfully saved'})
         res.json(card);
     });
 };

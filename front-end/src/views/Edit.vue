@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Edit Card</h1>
-        <card-form @createOrUpdate="createOrUpdate" :card="this.card"></card-form>
+        <card-form @createOrUpdate="update" :card="this.card"></card-form>
     </div>
 </template>
 
@@ -21,12 +21,10 @@ export default {
         }
     },
     methods: {
-        createOrUpdate: async function() {
-            console.log(this.card)
-            await api.updateCard(this.card); 
-           // alert('Card is updated!');
-
-        }
+        update: async function(card) {
+            await api.updateCard(card); 
+            this.$router.push(`/cards/${card._id}`);
+        },
     },
     async mounted() {
         this.card = await api.getCard(this.$route.params.id)

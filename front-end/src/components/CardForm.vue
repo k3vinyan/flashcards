@@ -29,20 +29,13 @@ export default {
     },
     methods: {
         onSubmit: function() {
-            console.log(this.card.term)
-
             if(this.card.term === "" || this.card.definition === "") {
                 this.errorsPresent = true;
             } else {
-                this.$emit('createOrUpdate', this.word);
+                this.$emit('createOrUpdate', this.card);
             }
         
         }
-        // createOrUpdate: async function(word) {
-        //     await api.updateCard(word);
-        //     alert('Card updated successfully!');
-        //     this.$router.push('')
-        // }
     }
  }
 </script>
