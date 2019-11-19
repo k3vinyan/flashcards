@@ -29,7 +29,7 @@ export const api = {
     },
     updateCard: async payload => {
         try {
-            const res = await axios.post(baseURL + payload._id, payload);
+            const res = await axios.put(baseURL + payload._id, payload);
             return res.data;
         } catch(e) {
             console.error(e);
