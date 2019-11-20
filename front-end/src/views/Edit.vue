@@ -7,7 +7,6 @@
 
 <script>
 import CardForm from '../components/CardForm.vue'
-//import test from '../components/Test.vue'
 import { api }  from '../helpers/helpers'
 
 export default {
