@@ -12,7 +12,6 @@ exports.create_a_card = (req, res) => {
     const newCard = new Card(req.body);
     newCard.save((err, card) => {
         if(err) res.send(err);
-        //res.json({message: 'Card sucessfully saved'})
         res.json(card);
     });
 };
@@ -25,7 +24,6 @@ exports.read_a_card = (req, res) => {
 };
 
 exports.update_a_card = (req, res) => {
-    console.log("update card: ", req)
     Card.findOneAndUpdate(
         { _id: req.params.cardId },
         req.body,
