@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Cards from '../views/Cards.vue';
+import Categories from '../views/Categories.vue';
 import New from '../views/New.vue';
 import Show from '../views/Show.vue';
 import Edit from '../views/Edit.vue';
@@ -20,7 +20,7 @@ export default new Router({
     {
       path: '/cards',
       name: 'cards',
-      component: Cards
+      component: Categories
     },
     {
       path: '/cards/new',

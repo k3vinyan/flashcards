@@ -6,7 +6,7 @@ require('dotenv').config();
 
 global.Card = require('./api/models/cardModel');
 global.Category = require('./api/models/categoryModel');
-const routes = require('./api/routes/cardRoutes');
+const routes = require('./api/routes/routes');
 
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
