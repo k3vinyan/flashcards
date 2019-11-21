@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
 
-exports.list_of_categories = (req, res) => {
+exports.list_all_categories = (req, res) => {
     Category.find({}, (err, categories) => {
         if(err) res.send(err);
         res.json(categories);
     });
 };
 
-exports.create_categories = (req, res) => {
-    const saveCategory = new Category(res.body);
-    saveCategory.save( (err, res)=> {
+exports.create_category = (req, res) => {
+    const saveCategory = new Category(req.body);
+    saveCategory.save( (err, category)=> {
+        console.log(category)
         if(err) res.send(err);
         res.json(category);
     });

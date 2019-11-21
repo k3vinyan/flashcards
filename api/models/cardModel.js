@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const CardSchema = new Schema({
     term: {
         type: String,
-        required: 'Term is required'
+        required: 'term is required'
     },
     definition: {
         type: String,

@@ -1,49 +1,72 @@
 const mongoose= require('mongoose');
-const Card = mongoose.model('Card');
+const Category = mongoose.model('Category');
 
 exports.list_all_cards = (req, res) => {
-    Card.find({}, (err, cards) => {
-        if(err) res.send(err);
-        res.json(cards);
-    });
-};
+  Category.findById(req.params.categoryId)
+  .then( category => {
+    res.json(category.cards)
+  })
+  .catch( err => { res.send(err) })
+}
 
 exports.create_a_card = (req, res) => {
-    const newCard = new Card(req.body);
-    newCard.save((err, card) => {
-        if(err) res.send(err);
-        res.json(card);
-    });
-};
+  Category.findById(req.params.categoryId)
+  .then( category => {
+    category.cards.push({
+      term: req.body.term,
+      definition: req.body.definition
+    })
+    category.save().then( cards => {
+      const index = cards['cards'].length - 1
+      res.json(cards['cards'][index])
+    })
+  })
+  .catch( err => { res.send(err) })
+}
 
 exports.read_a_card = (req, res) => {
-    Card.findById(req.params.cardId, (err, card) => {
-        if(err) res.send(err);
-        res.json(card);
-    });
-};
+  Category.findById(req.params.categoryId)
+  .then( category => {
+    const card = category.cards.find( card => card._id == req.params.cardId )
+    res.json(card)
+  })
+  .catch( err => { res.send(err) })
+}
 
 exports.update_a_card = (req, res) => {
-    Card.findOneAndUpdate(
-        { _id: req.params.cardId },
-        req.body,
-        { new: true },
-        (err, card) => {
-            if(err) res.send(err);
-            res.json(card);
-        }
-    );
+  
+  Category.findOneAndUpdate(
+    { _id: req.params.categoryId, 
+    },
+    { $set: {"cards.$[card]": req.body }},
+    {
+      new: true,
+      arrayFilters: [
+        { "card._id": req.params.cardId }
+      ]
+    }
+  )
+  .then( category => {
+    const card = category.cards.find( card => card.term == req.body.term && card.definition == req.body.definition)
+    res.json(card)
+  })
+  .catch( err => { res.send(err) })
 };
 
 exports.delete_a_card = (req, res) => {
-    Card.deleteOne({ _id: req.params.cardId}, err => {
-        if(err) res.send(err);
-        res.json({
-            message: 'Card successfully deleted',
-            _id: req.params.cardId
-        });
+  Category.findOneAndUpdate(
+    { _id: req.params.categoryId },
+    { 
+      $pull: {cards: { _id: req.params.cardId }}
+    }
+  )
+  .then( () => {
+    res.json({
+      message: 'Card successfully deleted',
+      _id: req.params.cardId
     });
-};
-
-
-
+  })
+  .catch( err => {
+    res.send(err)
+  })
+}

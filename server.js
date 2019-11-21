@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 global.Card = require('./api/models/cardModel');
+global.Category = require('./api/models/categoryModel');
 const routes = require('./api/routes/cardRoutes');
 
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
     'mongodb+srv://k3vinyan:' + process.env.DB_PW + '@cluster0-gliun.mongodb.net/test?retryWrites=true&w=majority',
-    { 
+    {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }, (err, connection) => {
