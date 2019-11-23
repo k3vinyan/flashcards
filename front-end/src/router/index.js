@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Categories from '../views/Categories.vue';
-import New from '../views/New.vue';
+import CategoriesNew from '../views/Category/New.vue';
 import Show from '../views/Show.vue';
 import Edit from '../views/Edit.vue';
 import Test from '../views/Test.vue';
@@ -15,17 +15,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/cards'
+      redirect: '/categories'
     },
     {
-      path: '/cards',
-      name: 'cards',
+      path: '/categories',
+      name: 'categories',
       component: Categories
     },
     {
-      path: '/cards/new',
-      name: 'new-card',
-      component: New
+      path: '/categories/new',
+      name: 'new',
+      component: CategoriesNew
     },
     {
       path: '/cards/:id',

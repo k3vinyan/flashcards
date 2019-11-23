@@ -11,7 +11,6 @@ exports.list_all_categories = (req, res) => {
 exports.create_category = (req, res) => {
     const saveCategory = new Category(req.body);
     saveCategory.save( (err, category)=> {
-        console.log(category)
         if(err) res.send(err);
         res.json(category);
     });
@@ -37,7 +36,7 @@ exports.update_category = (req, res) => {
 }
 
 exports.delete_category = (req, res) => {
-    Category.deleteOne({ _id: req.params.categoryId }, err => {
+    Category.deleteOne({ _id: req.params.categoryId }, (err) => {
         if(err) res.send(err);
         res.json({
             message: 'Category successfully deleted',

@@ -10,6 +10,8 @@ exports.list_all_cards = (req, res) => {
 }
 
 exports.create_a_card = (req, res) => {
+  console.log("params: ", req.params)
+  console.log("body: ", req.body)
   Category.findById(req.params.categoryId)
   .then( category => {
     category.cards.push({
@@ -17,8 +19,9 @@ exports.create_a_card = (req, res) => {
       definition: req.body.definition
     })
     category.save().then( cards => {
-      const index = cards['cards'].length - 1
-      res.json(cards['cards'][index])
+    
+      
+      res.json(cards)
     })
   })
   .catch( err => { res.send(err) })
