@@ -26,6 +26,8 @@
 
 import { api }  from '../helpers/helpers';
 
+console.log("this is the categories");
+
 export default {
   name: "categories",
   data: function() {

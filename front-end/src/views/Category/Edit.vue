@@ -1,5 +1,5 @@
 <template>
-    <div class="template-container">
+     <div class="template-container">
         <header class="template-header">
             <input v-model="category.title" audofocus/>
             <button>import</button>
@@ -19,25 +19,22 @@
             </ul>
         </div>
     </div>
-
 </template>
 
 <script>
-
-import CardForm from '../../components/CForm.vue'
 import { api } from '../../helpers/helpers'
+import CardFrom from '../../components/CForm'
 
 export default {
-    name: 'category-new',
+    name: "category-edit",
     components: {
-        'card-form': CardForm
+        'card-form': CardFrom
     },
     data: function() {
         return {
-            category: { title:'Untitiled Flashcard' },
+            category: {},
             card: {},
-            cards: {},
-            isCategorySet: false
+            cards: {}
         }
     },
     methods: {
@@ -57,30 +54,9 @@ export default {
             console.log(this.cards)
         }
     },
-    async mount() {
-        
+    async mounted() {
+        this.category = await api.cards.getCards(this.$route.params.id)
     }
 }
 </script>
 
-<style lang="scss" scoped>
-.template-container {
-    height: 100%;
-
-    .template-header {
-        
-        input {
-            color: lightblue;
-            font-weight: bold;
-        }
-    }
-
-    .template-content {
-        height: 90%;
-
-        .card-container {
-            height: 100%;
-        }
-    }
-}
-</style>

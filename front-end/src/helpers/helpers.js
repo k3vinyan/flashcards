@@ -66,8 +66,6 @@ const categories = {
     deleleCategory: async id => {
         try {
             const url = createURL(id);
-            console.log('id ', id)
-            console.log(url)
             const res = await axios.delete(url);
             return res.data;
         } catch(e) {

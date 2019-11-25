@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="ui inverted segment navbar">
+    <div class="ui inverted segment navbar main-header">
       <div class="ui center aligned container">
         <div class="ui large secondary inverted pointing menu compact">
           <router-link to="/categories" exact class="item">
@@ -16,12 +16,8 @@
       </div>
     </div>
 
-    <div class="ui text container">
-      <div class="ui one column grid">
-        <div class="column">
-          <router-view />
-        </div>
-      </div>
+    <div class="ui text main-content">
+      <router-view />
     </div>
   </div>
 </template>
@@ -32,29 +28,50 @@ export default {
 };
 </script>
 
-<style>
-#app > div.navbar {
-  margin-bottom: 1.5em;
-}
-.myFlash {
-  width: 250px;
-  margin: 10px;
-  position: absolute;
-  top: 50;
-  right: 0;
-}
-input {
-  width: 300px;
-}
-div.label {
-  width: 120px;
-}
-div.input {
-  margin-bottom: 10px;
-}
-button.ui.button {
-  margin-top: 15px;
-  display: block;
+<style lang="scss">
 
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .main-header {
+
+  }
+
+  .main-content {
+    flex: 2 1 auto;
+  }
+}
+
+
+// #app > div.navbar {
+//   margin-bottom: 1.5em;
+// }
+// .myFlash {
+//   width: 250px;
+//   margin: 10px;
+//   position: absolute;
+//   top: 50;
+//   right: 0;
+// }
+// input {
+//   width: 300px;
+// }
+// div.label {
+//   width: 120px;
+// }
+// div.input {
+//   margin-bottom: 10px;
+// }
+// button.ui.button {
+//   margin-top: 15px;
+//   display: block;
+//}
 </style>

@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Categories from '../views/Categories.vue';
-import CategoriesNew from '../views/Category/New.vue';
-import Show from '../views/Show.vue';
-import Edit from '../views/Edit.vue';
+import CategoryNew from '../views/Category/New.vue';
+import CategoryShow from '../views/Category/Show.vue';
+import CategoryEdit from '../views/Category/Edit.vue';
+//import Show from '../views/Show.vue';
+//import Edit from '../views/Edit.vue';
 import Test from '../views/Test.vue';
 
 Vue.use(Router);
@@ -24,18 +26,18 @@ export default new Router({
     },
     {
       path: '/categories/new',
-      name: 'new',
-      component: CategoriesNew
+      name: 'category-new',
+      component: CategoryNew
     },
     {
-      path: '/cards/:id',
-      name: 'show',
-      component: Show
+      path: '/categories/:id/cards',
+      name: 'category-show',
+      component: CategoryShow
     },
     {
-      path: '/cards/:id/edit',
+      path: '/categories/:id/cards/edit',
       name: 'edit',
-      component: Edit
+      component: CategoryEdit
     },
     {
       path: '/test',
