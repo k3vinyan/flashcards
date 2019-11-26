@@ -10,7 +10,7 @@
         </router-link>
       </li>
       <li v-for="(category, i) in categories" :key="i" class="flashcards-item">
-        <a class="flashcards-item-icon" @click="deleteCategory(category._id)">
+        <a class="flashcards-item-icon" @click="deleteCategory(category)">
           <i class="trash alternate outline icon"></i>
         </a>
         <router-link :to="linktoFlashCards(category._id)">
@@ -26,8 +26,6 @@
 
 import { api }  from '../helpers/helpers';
 
-console.log("this is the categories");
-
 export default {
   name: "categories",
   data: function() {
@@ -39,9 +37,9 @@ export default {
     linktoFlashCards: function(id) {
       return `/categories/${id}/cards`
     },
-    deleteCategory: async function(id) {
-      await api.categories.deleleCategory(id)
-      this.removeCategory(id)
+    deleteCategory: async function(category) {
+      await api.categories.deleteCategory(category)
+      this.removeCategory(category._id)
     },
     removeCategory: function(id) {
       this.categories = this.categories.filter( (categories) => {

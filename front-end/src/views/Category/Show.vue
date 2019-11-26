@@ -27,12 +27,12 @@ export default {
     name: 'category-show',
     data: function() {
         return {
-            category: [],
+            category: {}
         }
     },
     async mounted() {
-        this.category = await api.cards.getCards(this.$route.params.id);
-        console.log(this.category)
+        this.category = await api.categories.getCategory(this.$route.params.id)
+        
     }
 }
 </script>

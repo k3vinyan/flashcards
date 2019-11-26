@@ -5,8 +5,6 @@ const createURL = function(categoryId, cardId, method) {
     if(categoryId === undefined && cardId === undefined) {
         return baseURL;
     }
-    
-    
     if(categoryId && cardId === undefined) {
         if(method === "GET") {
             return baseURL + categoryId;
@@ -17,13 +15,9 @@ const createURL = function(categoryId, cardId, method) {
 
         return baseURL + categoryId;
     }
-    
-
     if(categoryId && cardId) {
         return baseURL + categoryId + '/cards/' + cardId;
     }
-
-
 }
 
 const categories = {
@@ -31,6 +25,7 @@ const categories = {
         try{
             const url = createURL(id);
             const res = await axios.get(url);
+
             return res.data;
         } catch(e) {
             console.error(e);
@@ -54,18 +49,19 @@ const categories = {
             console.error(e);
         }
     },
-    updateCategory: async id => {
+    updateCategory: async category => {
+        console.log(category)
         try {
-            const url = createURL(id);
-            const res = await axios.put(url);
+            const url = createURL(category._id);
+            const res = await axios.put(url, category);
             return res.data;
         } catch(e) {
             console.error(e);
         }
     },
-    deleleCategory: async id => {
+    deleteCategory: async category => {
         try {
-            const url = createURL(id);
+            const url = createURL(category._id);
             const res = await axios.delete(url);
             return res.data;
         } catch(e) {
@@ -100,18 +96,18 @@ const cards = {
     },
     createCard: async payload => {
         try {
-            const url = createURL(payload.categoryId, undefined, "POST");
-            console.log(payload)
-            const res = await axios.post(url, payload.data);
-            console.log("ddsfdf", res.data)
+            const url = createURL(payload.category._id, undefined, "POST");
+            const res = await axios.post(url, payload.card);
             return res.data;
         } catch(e) {
             console.error(e);
         }
     },
     updateCard: async payload => {
+        console.log("payload", payload)
         try {
             const url = createURL(payload.categoryId, payload.cardId)
+            console.log(url)
             const res = await axios.put(url, payload.data);
             return res.data;
         } catch(e) {

@@ -1,23 +1,29 @@
 <template>
      <div class="template-container">
+
         <header class="template-header">
             <input v-model="category.title" audofocus/>
+            <button>New</button>
             <button>import</button>
-            <button>Save & Exit</button>
+             <router-link to="/categories/">
+                <button>Save & Exit</button>
+            </router-link>
         </header>
+
         <div class="template-content">
-            <card-form class="card-container" @createOrUpdate="create" :card="card"></card-form>
-            <ul>
-                <template v-if="cards">
-                    <li v-for="(card, i) in cards" :key="i">
+            <card-form class="card-container" @createOrUpdate="update" :card="card"></card-form>
+            <div class="card-list">
+                <ul v-if="category.cards">
+                    <li v-for="(card, i) in category.cards" :key="i" @click="selectCard(card)">
                         <a href="#">
                             <p>{{card.term}}</p>
                             <p>{{card.definition}}</p>
                         </a>
                     </li>
-                </template>
-            </ul>
+                </ul>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -34,7 +40,6 @@ export default {
         return {
             category: {},
             card: {},
-            cards: {}
         }
     },
     methods: {
@@ -50,8 +55,17 @@ export default {
             this.update(payload);
         },
         update: async function(card) {
-            this.cards = await api.cards.createCard(card);
-            console.log(this.cards)
+            console.log("card", card)
+            const payload = {
+                data: card,
+                categoryId: this.$route.params.id,
+                cardId: card._id
+            }
+            this.cards = await api.cards.updateCard(payload);
+            this.card = {};
+        },
+        selectCard: function(card) {
+            this.card = card;
         }
     },
     async mounted() {
@@ -60,3 +74,49 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.template-container {
+    height: 100%;
+
+    .template-header {
+        
+        input {
+            color: lightblue;
+            font-weight: bold;
+        }
+    }
+
+    .template-content {
+        height: 80%;
+
+        .card-container {
+            height: 100%;
+        }
+
+
+        .card-list {
+            height: 20%;
+
+            ul {
+                display: flex;
+                list-style-type: none;
+                justify-content: space-around;
+                height: 90%; 
+                padding: 0; 
+
+            li {
+
+                flex: 1 1 50px;
+                overflow: hidden;
+                overflow-y: hidden;
+                align-items: flex-start;
+                border: 1px solid lightblue;
+                text-align: center;
+
+            }
+        }
+        }
+        
+    }
+}
+</style>

@@ -10,8 +10,7 @@ exports.list_all_cards = (req, res) => {
 }
 
 exports.create_a_card = (req, res) => {
-  console.log("params: ", req.params)
-  console.log("body: ", req.body)
+  console.log("create card", req.body)
   Category.findById(req.params.categoryId)
   .then( category => {
     category.cards.push({
@@ -19,8 +18,6 @@ exports.create_a_card = (req, res) => {
       definition: req.body.definition
     })
     category.save().then( cards => {
-    
-      
       res.json(cards)
     })
   })
@@ -37,7 +34,6 @@ exports.read_a_card = (req, res) => {
 }
 
 exports.update_a_card = (req, res) => {
-  
   Category.findOneAndUpdate(
     { _id: req.params.categoryId, 
     },

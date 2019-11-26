@@ -27,7 +27,8 @@ export default {
         };
     },
     async mounted() {
-        this.card = await api.getCard(this.$route.params.id);
+        this.card = await api.categories.getCategory(this.$router.params.categoryId)
+        console.log(card)
     }
 }
 </script>
