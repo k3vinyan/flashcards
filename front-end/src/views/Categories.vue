@@ -10,16 +10,16 @@
         </router-link>
       </li>
       <li v-for="(category, i) in categories" :key="i" class="flashcards-item">
-        <a class="flashcards-item-icon" @click="deleteCategory(category)">
-          <i class="trash big alternate outline icon"></i>
-        </a>
-        <router-link to="">
+         <router-link to="" class="flashcards-item-icon">
           <i class="big edit icon"></i>
         </router-link>
-        <router-link :to="linktoFlashCards(category._id)">
+        <router-link :to="linktoFlashCards(category._id)" class="flashcards-item-title">
           <h2>{{category.title}}</h2>
           <p>{{category.subTitle}}</p>
         </router-link>
+        <a class="flashcards-item-icon delete-icon" @click="deleteCategory(category)">
+          <i class="trash big alternate outline icon"></i>
+        </a>
       </li>
     </ul>
   </div>
@@ -64,26 +64,15 @@ ul {
   flex-direction: column;
   list-style-type: none;
   padding: 0 5px 0 5px;
+
+  li > a {
+    color: $font-color;
+  }
 }
 
-li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-li > a {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  color: $font-color;
-}
 
 .flashcards-new-item, .flashcards-item {
-  flex: 1 1 auto;
+  display: flex;
   position: relative;
   width: 100%;
   height: 100px;
@@ -92,16 +81,29 @@ li > a {
   background: $primary-color;
   border-radius: 5px 5px 5px 5px;
   box-shadow: 2px 2px 10px;
+
+
+  .flashcards-item-title {
+    display: flex;
+    flex-grow: 2;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .flashcards-item-icon {
+
+    flex-grow: 0;
+    i {
+      margin: 10px 10px 10px 10px;
+    }
+  }
 }
 
-.flashcards-item-icon{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  margin: 10px 10px 10px 10px;
+.flashcards-new-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 
 </style>
