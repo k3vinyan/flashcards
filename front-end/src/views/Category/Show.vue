@@ -1,11 +1,16 @@
 <template>
     <div class="template-container">
         <header class="template-header">
-            <h1>Show Category</h1>
+            <h1>{{category.title}}</h1>
             <button>
-            <router-link :to="'/categories/' + this.category._id + '/cards/edit'">
-                <i class="big plus circle icon"></i>
-            </router-link>
+                <router-link :to="'/categories/' + this.category._id + '/cards/edit'">
+                    <i class="huge plus circle icon"></i>
+                </router-link>
+            </button>
+            <button>
+                <router-link :to="'/categories/' + this.category._id + '/cards/test'">
+                    <i class="huge book icon"></i>
+                </router-link>
             </button>
         </header>
         <div class="template-content">
@@ -32,7 +37,7 @@ export default {
     },
     async mounted() {
         this.category = await api.categories.getCategory(this.$route.params.id)
-        
+        console.log(this.$route)
     }
 }
 </script>

@@ -11,8 +11,11 @@
       </li>
       <li v-for="(category, i) in categories" :key="i" class="flashcards-item">
         <a class="flashcards-item-icon" @click="deleteCategory(category)">
-          <i class="trash alternate outline icon"></i>
+          <i class="trash big alternate outline icon"></i>
         </a>
+        <router-link to="">
+          <i class="big edit icon"></i>
+        </router-link>
         <router-link :to="linktoFlashCards(category._id)">
           <h2>{{category.title}}</h2>
           <p>{{category.subTitle}}</p>
@@ -53,7 +56,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../stylesheets/style.css.scss';
+
 ul {
   display: flex;
   flex-direction: column;
@@ -74,6 +79,7 @@ li > a {
   align-items: center;
   width: 100%;
   height: 100%;
+  color: $font-color;
 }
 
 .flashcards-new-item, .flashcards-item {
@@ -81,8 +87,11 @@ li > a {
   position: relative;
   width: 100%;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid $primary-color;
   margin: 5px 0  5px 0;
+  background: $primary-color;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 2px 2px 10px;
 }
 
 .flashcards-item-icon{

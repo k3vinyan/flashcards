@@ -54,7 +54,6 @@ $base-color: #c6538c;
 
 // center placehoder
 ::-webkit-input-placeholder {
-    color: lightblue;
     text-align: center;
     font-size: 90px;
     padding: auto;
@@ -63,18 +62,15 @@ $base-color: #c6538c;
 }
 :-moz-placeholder {
     /* Firefox 18- */
-    color: lightblue;
     text-align: center;
     vertical-align: middle;
 }
 ::-moz-placeholder {
     /* Firefox 19+ */
-    color: lightblue;
     text-align: center;
     vertical-align: middle;
 }
 :-ms-input-placeholder {
-    color: lightblue;
     text-align: center;
     vertical-align: middle;
 }

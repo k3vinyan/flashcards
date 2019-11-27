@@ -40,7 +40,7 @@ export default new Router({
       component: CategoryNew
     },
     {
-      path: '/test',
+      path: '/categories/:id/cards/test',
       name: 'test',
       component: Test
     }
