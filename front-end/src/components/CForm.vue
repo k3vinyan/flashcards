@@ -1,8 +1,23 @@
 <template>
     <div class="card">
-        <textarea class="card-term"       v-model="card.term"       placeholder="Term"/>
-        <textarea class="card-definition" v-model="card.definition" placeholder="Definition"/>
-        <button   class="card-submit"     @click="onSubmit">Submit</button>
+        <textarea 
+            class="card-term"       
+            v-model="card.term"       
+            placeholder="Term"
+        />
+        <textarea 
+            class="card-definition" 
+            id="card-defintion-id" 
+            v-model="card.definition" 
+            placeholder="Definition" 
+            @input="test" 
+        />
+        <button   
+            class="card-submit"     
+            @click="onSubmit"
+        >
+            Submit
+        </button>
     </div>
 </template>
 
@@ -18,6 +33,82 @@ export default {
     methods: {
         onSubmit: function() {
             this.$emit('createOrUpdate', this.card)
+        },
+        getElementProperty: function(el) {
+            const fontSize = window.getComputedStyle(el, null).getPropertyValue('font-size').replace(/px/g, '');
+            const width = window.getComputedStyle(el, null).getPropertyValue('width').replace(/px/g, '');
+            const height = window.getComputedStyle(el, null).getPropertyValue('height').replace(/px/g, '');
+            const lineHeight = window.getComputedStyle(el, null).getPropertyValue('line-height').replace(/px/g, '');
+            const paddingWidth = window.getComputedStyle(el, null).getPropertyValue('padding-top').replace(/px/g, '') * 2;
+            const paddingHeight =window.getComputedStyle(el, null).getPropertyValue('padding-right').replace(/px/g, '') * 2;
+
+            const elProperty = {
+                el: el,
+                fontSize: fontSize,
+                lineHeight: lineHeight,
+                width: width,
+                height: height,
+                paddingWidth: paddingWidth,
+                paddingHeight: paddingHeight,
+                value: el.value
+            }
+
+            //console.log(elProperty);
+            return elProperty;
+        },
+        getBaseChange: function(elProperty) {
+            const basePoint = Math.floor((elProperty.height - elProperty.paddingHeight) / elProperty.fontSize);
+            return basePoint;
+        },
+        getWidthChange: function(elProperty) {
+            const basePoint = (Math.floor((elProperty.width - elProperty.paddingWidth) / elProperty.fontSize))* 2;
+
+            return basePoint;
+        },
+        getFontSize: function(elProperty, basePoint, changeType) {
+            let point = basePoint; 
+            
+            if(changeType === "increase") {
+                point++;
+            } else if(changeType === "decrease") {
+                point--;
+            }
+            const fontSize = Math.floor((elProperty.height - elProperty.paddingHeight) / point);
+            //console.log(fontSize)
+            return fontSize;
+        },
+        test: function() {
+            let el = document.getElementById("card-defintion-id");       
+            const elProperty = this.getElementProperty(el);
+            let basePoint = this.getBaseChange(elProperty);
+            let fontSize = this.getFontSize(elProperty, basePoint, "increase") + "px";
+
+            let lineBreakCount = 0;
+            
+            let test = this.getWidthChange(elProperty);
+
+            console.log(elProperty.value.length)
+            console.log(test);
+            console.log("---------------------------------------")
+
+            for(let i = 0; i < elProperty.value.length; i++) {
+            
+                if(elProperty.value[i] === '\n') {
+                    lineBreakCount++;
+                }
+
+                // if(elProperty.value.length >= test) {
+                //     lineBreakCount++;
+                // }
+
+
+                if(lineBreakCount >= basePoint) {
+                    el.style.fontSize = fontSize;
+                    el.style.lineHeight = fontSize;
+                }
+            }
+
+                
         }
     }
 
@@ -37,14 +128,20 @@ $base-color: #c6538c;
     height: 90%;
     padding: 10px 10px 10px 10px;
 
+    textarea {
+        text-align: center;
+        font-size: 56px;
+        line-height: 56px;
+    }
+
     .card-term {
         @include blue-border();
-        flex: 1 1 auto;
+        flex: 1 1 100px;
     }
 
     .card-definition {
         @include blue-border();
-        flex: 1 1 auto;
+        flex: 1 1 100px;
     }
     .card-submit {
         flex: 0 1 auto;
@@ -55,10 +152,10 @@ $base-color: #c6538c;
 // center placehoder
 ::-webkit-input-placeholder {
     text-align: center;
-    font-size: 90px;
+    font-size: 70px;
     padding: auto;
     display: inline-block;
-    vertical-align: middle;
+    line-height: 200px;
 }
 :-moz-placeholder {
     /* Firefox 18- */

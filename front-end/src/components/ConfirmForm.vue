@@ -4,7 +4,8 @@
             <h1>Save Form</h1>
             <label>Title</label>
             <input v-model="category.title"/>
-            <p>flashcards: {{category.cards.length}}</p>
+            <!-- <p>flashcards: {{category.cards.length}}</p> -->
+             <p>flashcards: 0</p>
             <button @click.prevent="onCancel">Cancel</button>
             <button @click.prevent="onSubmit">Save</button>
         </div>

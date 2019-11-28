@@ -1,10 +1,19 @@
 <template>
     <div class="template-container">
         <header class="template-header">
-            <button @click="deleteCategory">Cancel & Exit</button>
-            <input @change="updateCategory" v-model="category.title" autofocus/>
-            <button @click="displaySaveForm">Save & Exit</button>
+            <ul class="template-header-list">
+                <li class="template-header-item">
+                    <button @click="deleteCategory">Cancel & Exit</button>
+                </li>
+                <li class="template-header-item">
+                    <input @change="updateCategory" v-model="category.title" autofocus/>
+                </li>
+                <li class="template-header-item">
+                    <button @click="displaySaveForm">Save & Exit</button>
+                </li>
+            </ul>     
         </header>
+
         <div class="template-content">
            <card-form class="card-container" @createOrUpdate="createCard" :card="card"></card-form>
              <ul>
@@ -87,13 +96,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .template-container {
     position: relative;
     height: 100%;
 
     .template-header {
-        
+
+        .template-header-list {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+
+            .template-header-item {
+                text-align: center;
+            }
+        }
         input {
+            text-align: center;
             color: lightblue;
             font-weight: bold;
         }
@@ -101,7 +121,6 @@ export default {
 
     .template-content {
         height: 90%;
-
         .card-container {
             height: 100%;
         }
