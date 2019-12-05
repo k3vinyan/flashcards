@@ -3,9 +3,7 @@ import Router from 'vue-router';
 import Categories from '../views/Categories.vue';
 import CategoryNew from '../views/Category/New.vue';
 import CategoryShow from '../views/Category/Show.vue';
-//import CategoryEdit from '../views/Category/Edit.vue';
-//import Show from '../views/Show.vue';
-//import Edit from '../views/Edit.vue';
+import CategoryEdit from '../views/Category/Edit.vue';
 import Test from '../views/Test.vue';
 
 Vue.use(Router);
@@ -36,8 +34,8 @@ export default new Router({
     },
     {
       path: '/categories/:id/cards/edit',
-      name: 'edit',
-      component: CategoryNew
+      name: 'category-edit',
+      component: CategoryEdit
     },
     {
       path: '/categories/:id/cards/test',

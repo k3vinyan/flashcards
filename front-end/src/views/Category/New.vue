@@ -18,7 +18,7 @@
         <div class="template-content">
            <card-form class="template-content-card-container" @createOrUpdate="createCard" :card="card"></card-form>
              <ul class="template-content-card-list">
-                <template v-if="category.cards.length === 0">
+                <template v-if="cardCount === 0">
                     <li class="template-content-card-item-placeholder">
                         <p>Set of Cards</p>
                     </li>
@@ -53,7 +53,8 @@ export default {
             card: {},
             isHidden: true,
             isSave: false,
-            selected: false
+            selected: false,
+            cardCount: 0
         }
     },
     methods: {
@@ -70,6 +71,7 @@ export default {
                 card: card
             }
             this.category = await api.cards.createCard(payload);
+            this.updateCardCount();
         },
         selectCard: function(card){
             this.card = card;
@@ -83,6 +85,9 @@ export default {
                 }
             }
         },
+        updateCardCount: function() {
+            this.cardCount = this.category.cards.length;
+        },
         viewShow: function() {
             this.$router.push({ name: 'category-show', params: {id: this.category._id} })
          }
@@ -90,8 +95,10 @@ export default {
     async mounted() {
         if(this.$route.name === "category-new") {
             this.category = await api.categories.createCategory({ title: "Untitled Flashcard" });
+            this.updateCardCount();
         } else {
             this.category = await api.categories.getCategory(this.$route.params.id);
+            this.updateCardCount();
         }
     }
 }

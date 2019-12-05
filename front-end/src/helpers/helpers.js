@@ -105,7 +105,6 @@ const cards = {
         }
     },
     updateCard: async payload => {
-        console.log("payload", payload)
         try {
             const url = createURL(payload.categoryId, payload.cardId)
             console.log(url)

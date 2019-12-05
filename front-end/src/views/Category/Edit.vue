@@ -1,122 +1,203 @@
 <template>
-     <div class="template-container">
+    <div class="template-container">
 
         <header class="template-header">
-            <input v-model="category.title" audofocus/>
-            <button>New</button>
-            <button>import</button>
-             <router-link to="/categories/">
-                <button>Save & Exit</button>
-            </router-link>
+            <ul class="template-header-list">
+                <li class="template-header-item">
+                    <button @click="removeCard">remove</button>
+                </li>
+                <li class="template-header-item">
+                    <input @change="updateCategory" v-model="category.title" autofocus/>
+                </li>
+                <li class="template-header-item">
+                    <button @click="viewShow">View</button>
+                </li>
+            </ul>     
         </header>
 
         <div class="template-content">
-            <card-form class="card-container" @createOrUpdate="update" :card="card"></card-form>
-            <div class="card-list">
-                <ul v-if="category.cards">
-                    <li v-for="(card, i) in category.cards" :key="i" @click="selectCard(card)">
-                        <a href="#">
+           <card-form class="template-content-card-container" @createOrUpdate="createCard" :card="card"></card-form>
+             <ul class="template-content-card-list">
+                <template v-if="cardCount === 0">
+                    <li class="template-content-card-item-placeholder">
+                        <p>Set of Cards</p>
+                    </li>
+                </template>
+                 <template v-else>
+                    <li v-for="(card, i) in category.cards" :key="i" @click="selectCard(card)" :class="{selected: card.selected}" class="template-content-card-item">
+                        <a href="#" >
                             <p>{{card.term}}</p>
                             <p>{{card.definition}}</p>
                         </a>
                     </li>
-                </ul>
-            </div>
+                </template>
+            </ul>
         </div>
-
     </div>
+
 </template>
 
 <script>
+
+import CardForm from '../../components/CForm.vue'
 import { api } from '../../helpers/helpers'
-import CardFrom from '../../components/CForm'
 
 export default {
-    name: "category-edit",
+    name: 'category-new',
     components: {
-        'card-form': CardFrom
+        'card-form': CardForm
     },
     data: function() {
         return {
             category: {},
             card: {},
+            isHidden: true,
+            isSave: false,
+            selected: false,
+            cardCount: 0
         }
     },
     methods: {
-        create: async function(card) {
-            if(!this.categoryName) {
-                this.category = await api.categories.createCategory({title: this.category.title})
-                this.isCategorySet = true;
-            }
-            const payload = {
-                data: card,
-                categoryId: this.category._id
-            }
-            this.update(payload);
+        updateCategory: async function() {
+            this.category = await api.categories.updateCategory(this.category);       
         },
-        update: async function(card) {
-            console.log("card", card)
+        createCard: async function(card) {
             const payload = {
-                data: card,
-                categoryId: this.$route.params.id,
-                cardId: card._id
+                category: this.category,
+                card: card
             }
-            this.cards = await api.cards.updateCard(payload);
-            this.card = {};
+            this.category = await api.cards.createCard(payload);
+            this.updateCardCount();
         },
-        selectCard: function(card) {
+        selectCard: function(card){
             this.card = card;
-        }
+            card.selected = true;
+            this.deselectCard(card);
+        },
+        deselectCard: function(card){
+            for(let c in this.category.cards) {
+                if(card._id != this.category.cards[c]._id) {
+                    this.category.cards[c].selected = false;
+                }
+            }
+        },
+        removeCard: async function() {
+            const payload = {
+                categoryId: this.category._id,
+                cardId: this.card._id
+            }
+
+            console.log(payload)
+            this.category = await api.cards.deleteCard(payload);
+            console.log(this.category);
+        },
+        updateCardCount: function() {
+            this.cardCount = this.category.cards.length;
+        },
+        viewShow: function() {
+            this.$router.push({ name: 'category-show', params: {id: this.category._id} })
+         }
     },
     async mounted() {
-        this.category = await api.cards.getCards(this.$route.params.id)
+        if(this.$route.name === "category-new") {
+            this.category = await api.categories.createCategory({ title: "Untitled Flashcard" });
+            this.cardCount = this.category.cards.length;
+            this.updateCardCount();
+        } else {
+            this.category = await api.categories.getCategory(this.$route.params.id);
+            this.cardCount = this.category.cards.length;
+            this.updateCardCount();
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+
+@import '../../stylesheets/style.css.scss';
+
 .template-container {
-    height: 100%;
-
-    .template-header {
-        
-        input {
-            color: lightblue;
-            font-weight: bold;
-        }
-    }
-
+    
     .template-content {
         height: 80%;
 
-        .card-container {
-            height: 100%;
-        }
+        .template-content-card-list {
 
-
-        .card-list {
             height: 20%;
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow-x: scroll;
 
-            ul {
-                display: flex;
-                list-style-type: none;
-                justify-content: space-around;
-                height: 90%; 
-                padding: 0; 
-
-            li {
-
-                flex: 1 1 50px;
+            .template-content-card-item {
+                display: inline-block;
+                border: solid 1px $secondary-color;
+                min-width: 100px;
+                height: 100px;
+                margin: 2px 2px 2px 12px;
                 overflow: hidden;
-                overflow-y: hidden;
-                align-items: flex-start;
-                border: 1px solid lightblue;
-                text-align: center;
+    
+                a {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-around;
 
+                    p {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 50%;
+                        width: 100%;
+                        padding: 0;
+                        margin: 0;
+                    }
+                }
+
+                p:first-child {
+                    border-bottom: 1px dashed $secondary-color;
+                }
             }
         }
-        }
+
+        .template-content-card-item-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            color: $light-grey-color;
+            font-weight: bold;
+            font-size: $large-font;
+                
+            p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         
+        }
+    }
+    
+}
+
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.selected {
+    background: $primary-color;
+
+    p {
+        color: $font-color;
     }
 }
 </style>

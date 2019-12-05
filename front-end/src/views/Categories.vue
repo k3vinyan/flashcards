@@ -13,7 +13,7 @@
           </router-link>
         </li>
         <li v-for="(category, i) in categories" :key="i" class="template-container-list-item">
-          <router-link to="" class="template-container-list-item-icon">
+          <router-link :to="'/categories/' + category._id + '/cards/edit'" class="template-container-list-item-icon">
             <i class="big edit icon left-icon"></i>
           </router-link>
           <router-link :to="linktoFlashCards(category._id)" class="template-container-list-item-title">
@@ -54,6 +54,9 @@ export default {
       this.categories = this.categories.filter( (categories) => {
         return categories._id != id;
       })
+    },
+    viewEdit: function(category) {
+      this.$router.push({  name: 'category-edit', params: { id: category._id}})
     }
   },
   async mounted() {
@@ -87,8 +90,6 @@ export default {
         .template-container-item-icon {
           flex-grow: 0;
         }
-
-
         a {
           color: $font-color;
         }
@@ -131,53 +132,5 @@ export default {
 
   }
 }
-
-
-
-
-// .template-container-list-item-new, .template-container-list-item {
-//   display: flex;
-//   position: relative;
-//   width: 95%;
-//   height: 100px;
-//   border: 1px solid $primary-color;
-//   margin: 10px 0  10px 0;
-//   background: $primary-color;
-//   border-radius: 5px 5px 5px 5px;
-//   box-shadow: 2px 2px 10px;
-
-
-//   .template-container-item-title {
-//     display: flex;
-//     flex-grow: 2;
-//     justify-content: center;
-//     align-items: center;
-//     text-align: center;
-//     color: white;
-//   }
-
-//   .template-container-item-icon {
-//     flex-grow: 0;
-//     i {
-//       margin: 10px 10px 10px 10px;
-//       color: $font-color;
-//     }
-//   }
-// }
-
-// .template-container-item-new {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   background: $font-color;
-//   width: calc(100% - 10px);
-//   left: 5px;
-//   box-shadow: 0px 0px 0px 5px $primary-color;
-
-//   i {
-//     font-size: 40px !important;
-//     color: $primary-color;
-//   }
-//}
 
 </style>
