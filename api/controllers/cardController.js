@@ -55,14 +55,14 @@ exports.delete_a_card = (req, res) => {
   Category.findOneAndUpdate(
     { _id: req.params.categoryId },
     { 
-      $pull: {cards: { _id: req.params.cardId }}
-    }
+      $pull: {cards: { _id: req.params.cardId }},
+    },
+    { new: true}
   )
-  .then( () => {
-    res.json({
-      message: 'Card successfully deleted',
-      _id: req.params.cardId
-    });
+  .then( (category) => {
+    console.log(category)
+    res.json(category);
+
   })
   .catch( err => {
     res.send(err)
