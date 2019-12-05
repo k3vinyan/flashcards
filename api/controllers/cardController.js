@@ -10,7 +10,6 @@ exports.list_all_cards = (req, res) => {
 }
 
 exports.create_a_card = (req, res) => {
-  console.log("create card", req.body)
   Category.findById(req.params.categoryId)
   .then( category => {
     category.cards.push({

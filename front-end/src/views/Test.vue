@@ -26,4 +26,4 @@ export default {
         this.allCards = await api.getCards();
     }
 }
-</script>
+</script>s

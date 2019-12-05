@@ -62,7 +62,10 @@ export default {
         },
         getWidthChange: function(elProperty) {
             const basePoint = (Math.floor((elProperty.width - elProperty.paddingWidth) / elProperty.fontSize))* 2;
-
+            return basePoint;
+        },
+        getStringLengthChange: function(elProperty) {
+            const basePoint = (elProperty.width * elProperty.height) / (elProperty.fontSize * elProperty.fontSize);
             return basePoint;
         },
         getFontSize: function(elProperty, basePoint, changeType) {
@@ -74,7 +77,6 @@ export default {
                 point--;
             }
             const fontSize = Math.floor((elProperty.height - elProperty.paddingHeight) / point);
-            //console.log(fontSize)
             return fontSize;
         },
         test: function() {
@@ -84,23 +86,12 @@ export default {
             let fontSize = this.getFontSize(elProperty, basePoint, "increase") + "px";
 
             let lineBreakCount = 0;
-            
-            let test = this.getWidthChange(elProperty);
-
-            console.log(elProperty.value.length)
-            console.log(test);
-            console.log("---------------------------------------")
 
             for(let i = 0; i < elProperty.value.length; i++) {
             
                 if(elProperty.value[i] === '\n') {
                     lineBreakCount++;
                 }
-
-                // if(elProperty.value.length >= test) {
-                //     lineBreakCount++;
-                // }
-
 
                 if(lineBreakCount >= basePoint) {
                     el.style.fontSize = fontSize;
@@ -116,7 +107,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$base-color: #c6538c;
+
+@import "../stylesheets/style.css.scss";
+
 @mixin blue-border {
     border: 1px lightblue solid;
 }
@@ -132,6 +125,7 @@ $base-color: #c6538c;
         text-align: center;
         font-size: 56px;
         line-height: 56px;
+        resize: none;
     }
 
     .card-term {
@@ -144,6 +138,9 @@ $base-color: #c6538c;
         flex: 1 1 100px;
     }
     .card-submit {
+        background: $primary-color;
+        color: $font-color;
+        padding: 2px 0 2px 0;
         flex: 0 1 auto;
     }
 

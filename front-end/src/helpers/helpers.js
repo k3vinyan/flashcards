@@ -22,6 +22,7 @@ const createURL = function(categoryId, cardId, method) {
 
 const categories = {
     getCategory: async id => {
+        console.log(id)
         try{
             const url = createURL(id);
             const res = await axios.get(url);
@@ -50,7 +51,6 @@ const categories = {
         }
     },
     updateCategory: async category => {
-        console.log(category)
         try {
             const url = createURL(category._id);
             const res = await axios.put(url, category);
@@ -60,6 +60,7 @@ const categories = {
         }
     },
     deleteCategory: async category => {
+        console.log(category)
         try {
             const url = createURL(category._id);
             const res = await axios.delete(url);

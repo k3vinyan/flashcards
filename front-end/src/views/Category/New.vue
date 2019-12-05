@@ -1,25 +1,31 @@
 <template>
     <div class="template-container">
+
         <header class="template-header">
             <ul class="template-header-list">
                 <li class="template-header-item">
-                    <button @click="deleteCategory">Cancel & Exit</button>
+                    <button @click="deleteCategory">Cancel</button>
                 </li>
                 <li class="template-header-item">
                     <input @change="updateCategory" v-model="category.title" autofocus/>
                 </li>
                 <li class="template-header-item">
-                    <button @click="displaySaveForm">Save & Exit</button>
+                    <button @click="viewShow">View</button>
                 </li>
             </ul>     
         </header>
 
         <div class="template-content">
-           <card-form class="card-container" @createOrUpdate="createCard" :card="card"></card-form>
-             <ul>
-                <template v-if="category.cards">
-                    <li v-for="(card, i) in category.cards" :key="i">
-                        <a href="#">
+           <card-form class="template-content-card-container" @createOrUpdate="createCard" :card="card"></card-form>
+             <ul class="template-content-card-list">
+                <template v-if="category.cards.length === 0">
+                    <li class="template-content-card-item-placeholder">
+                        <p>Set of Cards</p>
+                    </li>
+                </template>
+                 <template v-else>
+                    <li v-for="(card, i) in category.cards" :key="i" @click="selectCard(card)" :class="{selected: card.selected}" class="template-content-card-item">
+                        <a href="#" >
                             <p>{{card.term}}</p>
                             <p>{{card.definition}}</p>
                         </a>
@@ -27,14 +33,6 @@
                 </template>
             </ul>
         </div>
-        <confirm-form 
-            class="save-form" 
-            :class="{hide: isHidden}" 
-            :category="category" 
-            @cancel="displaySaveForm" 
-            @saveAndExit="saveAndExit"
-        >
-        </confirm-form>
     </div>
 
 </template>
@@ -42,20 +40,20 @@
 <script>
 
 import CardForm from '../../components/CForm.vue'
-import ConfirmForm from '../../components/ConfirmForm.vue'
 import { api } from '../../helpers/helpers'
 
 export default {
     name: 'category-new',
     components: {
-        'card-form': CardForm,
-        'confirm-form': ConfirmForm
+        'card-form': CardForm
     },
     data: function() {
         return {
             category: {},
             card: {},
-            isHidden: true
+            isHidden: true,
+            isSave: false,
+            selected: false
         }
     },
     methods: {
@@ -73,17 +71,21 @@ export default {
             }
             this.category = await api.cards.createCard(payload);
         },
-        saveAndExit: function(category) {
-            this.updateCategory(category);
-            this.$router.push({ name: 'category-show', params: {id: category._id} })
+        selectCard: function(card){
+            this.card = card;
+            card.selected = true;
+            this.deselectCard(card);
         },
-        displaySaveForm: function() {
-            if(this.isHidden === true) {
-                this.isHidden = false;
-            } else {
-                this.isHidden = true;
+        deselectCard: function(card){
+            for(let c in this.category.cards) {
+                if(card._id != this.category.cards[c]._id) {
+                    this.category.cards[c].selected = false;
+                }
             }
-        }
+        },
+        viewShow: function() {
+            this.$router.push({ name: 'category-show', params: {id: this.category._id} })
+         }
     },
     async mounted() {
         if(this.$route.name === "category-new") {
@@ -97,51 +99,90 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../../stylesheets/style.css.scss';
+
 .template-container {
-    position: relative;
-    height: 100%;
+    
+    .template-content {
+        height: 80%;
 
-    .template-header {
+        .template-content-card-list {
 
-        .template-header-list {
+            height: 20%;
             display: flex;
             list-style-type: none;
+            margin: 0;
             padding: 0;
+            overflow-x: scroll;
 
-            .template-header-item {
-                text-align: center;
+            .template-content-card-item {
+                display: inline-block;
+                border: solid 1px $secondary-color;
+                min-width: 100px;
+                height: 100px;
+                margin: 2px 2px 2px 12px;
+                overflow: hidden;
+    
+                a {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-around;
+
+                    p {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 50%;
+                        width: 100%;
+                        padding: 0;
+                        margin: 0;
+                    }
+                }
+
+                p:first-child {
+                    border-bottom: 1px dashed $secondary-color;
+                }
             }
         }
-        input {
-            text-align: center;
-            color: lightblue;
+
+        .template-content-card-item-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            color: $light-grey-color;
             font-weight: bold;
+            font-size: $large-font;
+                
+            p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
         }
     }
+    
+}
 
-    .template-content {
-        height: 90%;
-        .card-container {
-            height: 100%;
-        }
-    }
 
-    .save-form {
-        position: absolute;
-        text-align: center;
-        top: 0;
-        background: rgb(220, 220, 220);
-        background: rgba(220, 220, 220, .5);
-        width: 100%;
-        height: 100%;
-    }
+.hide {
+    display: none;
+}
 
-    .hide {
-        display: none
-    }
+.show {
+    display: block;
+}
 
-    .show {
-        display: block
+.selected {
+    background: $primary-color;
+
+    p {
+        color: $font-color;
     }
 }
 </style>

@@ -8,11 +8,6 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/categories/new" class="item">
-                <i class="plus circle icon"></i> 
-              </router-link>
-            </li>
-            <li>
               <router-link to="/test" class="item">
                 <i class="graduation cap icon"></i> Test
               </router-link>
