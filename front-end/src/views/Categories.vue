@@ -12,7 +12,7 @@
             <i class="big plus circle icon"></i>
           </router-link>
         </li>
-        <li v-for="(category, i) in categories" :key="i" class="template-container-list-item">
+        <li v-for="(category, i) in flashcards" :key="i" class="template-container-list-item">
           <router-link :to="'/categories/' + category._id + '/cards/edit'" class="template-container-list-item-icon">
             <i class="big edit icon left-icon"></i>
           </router-link>
@@ -33,13 +33,12 @@
 
 <script>
 
-import { api }  from '../helpers/helpers';
-
 export default {
   name: "categories",
-  data: function() {
-    return {
-      categories: []
+  props: {
+    flashcards: {
+      type: Array,
+      required: true
     }
   },
   methods: {
@@ -47,20 +46,17 @@ export default {
       return `/categories/${id}/cards`
     },
     deleteCategory: async function(category) {
-      await api.categories.deleteCategory(category)
+      this.$emit('deleteCategory', category)
       this.removeCategory(category._id)
     },
     removeCategory: function(id) {
-      this.categories = this.categories.filter( (categories) => {
+      this.categories = this.flashcards.filter( (categories) => {
         return categories._id != id;
       })
     },
     viewEdit: function(category) {
       this.$router.push({  name: 'category-edit', params: { id: category._id}})
     }
-  },
-  async mounted() {
-    this.categories = await api.categories.getCategories();
   }
 }
 </script>

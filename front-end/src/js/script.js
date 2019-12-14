@@ -1,8 +1,5 @@
 import XLSX from "xlsx";
 
-
-console.log(XLSX);
-
 const parseExcel =  function(item, callback) {
     const file = item.files[0];
    
