@@ -19,24 +19,5 @@ const parseExcel =  function(item, callback) {
 }
 
 
-
-
-
-
-// const parseExcel = function(item) {
-    
-//     const file = item.files[0];
-//     const reader = new FileReader();
-
-//     reader.onload = function() {
-//         console.log(this);
-//         console.log("--------------");
-//         console.log(reader)
-//     }
-
-//     reader.readAsText(file);
-
-// }
-
 export { parseExcel }  ;
 

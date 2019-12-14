@@ -47,27 +47,4 @@ html, body {
 
 
 
-.main-header {
-  
-
-  .navbar {
-    background: $primary-color;
-
-    ul {
-      display: flex;
-      justify-content: space-around;
-      list-style: none;
-      padding: 0;
-
-      li {
-
-        .item {
-          color: $font-color;
-        }
-      }
-    }
-  }
-}
-
-
 </style>
