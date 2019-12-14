@@ -67,6 +67,7 @@ export default {
                 card: card
             }
             this.category = await api.cards.createCard(payload);
+            this.card = "";
             this.updateCardCount();
         },
         selectCard: function(card){
@@ -86,10 +87,8 @@ export default {
                 categoryId: this.category._id,
                 cardId: this.card._id
             }
-
-            console.log(payload)
             this.category = await api.cards.deleteCard(payload);
-            console.log(this.category);
+            this.card = "";
         },
         updateCardCount: function() {
             this.cardCount = this.category.cards.length;

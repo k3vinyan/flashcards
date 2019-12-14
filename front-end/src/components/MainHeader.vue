@@ -8,6 +8,9 @@
               </router-link>
             </li>
             <li>
+              <import-button></import-button>
+            </li>
+            <li>
               <router-link to="/test" class="item">
                 <i class="graduation cap icon"></i> Test
               </router-link>
@@ -18,7 +21,12 @@
 </template>
 
 <script>
+import importButton from './ImportButton'
+
 export default {
-    name: 'main-header'
+    name: 'main-header',
+    components: {
+      'import-button': importButton
+    }
 }
 </script>

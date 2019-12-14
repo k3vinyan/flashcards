@@ -71,6 +71,7 @@ export default {
                 card: card
             }
             this.category = await api.cards.createCard(payload);
+            this.card = "";
             this.updateCardCount();
         },
         selectCard: function(card){
