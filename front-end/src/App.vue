@@ -25,7 +25,39 @@ export default {
   methods: {
     createFlashcards: function(payload) {
       let that = this;
-      api.categories.createCategory({ title: payload.fileName }).then( async function() {
+
+      const data = payload.data;
+      const ref = data["!ref"];
+      const maxRow = ref[ref.length -1];
+  
+
+      
+
+      
+
+     
+
+      api.categories.createCategory({ title: payload.fileName }).then( async function(category) {
+        for(let i = 1; i < maxRow; i++) {
+          const aRow = "A" + i;
+          const bRow = "B" + i;
+        
+          const term = data[aRow].v
+          const definition = data[bRow].v
+
+          const payload = {
+            category,
+            card: {
+              term,
+              definition
+            }
+          }
+
+          console.log(payload);
+
+          api.cards.createCard(payload)
+        }
+        
         that.categories = await api.categories.getCategories();
       })
     },

@@ -10,7 +10,7 @@
             <li>
               <a href="#" @click="onClick">
                 <input type="file" id="file-input" @change="onChange"/> 
-                <i class="cloud upload icon"></i> <p>Import</p>
+                <i class="cloud upload icon"></i> <p>Import XLSX</p>
              </a>
             </li>
             <li>
