@@ -23,11 +23,11 @@
                         <p>Set of Cards</p>
                     </li>
                 </template>
+                <!-- for now only show term for moblie -->
                  <template v-else>
                     <li v-for="(card, i) in category.cards" :key="i" @click="selectCard(card)" :class="{selected: card.selected}" class="template-content-card-item">
                         <a href="#" >
                             <p>{{card.term}}</p>
-                            <p>{{card.definition}}</p>
                         </a>
                     </li>
                 </template>
@@ -132,7 +132,7 @@ export default {
             .template-content-card-item {
                 display: inline-block;
                 border: solid 1px $secondary-color;
-                min-width: 100px;
+                width: 200px;
                 height: 100px;
                 margin: 2px 2px 2px 12px;
                 overflow: hidden;
@@ -142,7 +142,8 @@ export default {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: space-around;
+                    justify-content: center;
+                    text-align: center;
 
                     p {
                         display: flex;
@@ -153,10 +154,6 @@ export default {
                         padding: 0;
                         margin: 0;
                     }
-                }
-
-                p:first-child {
-                    border-bottom: 1px dashed $secondary-color;
                 }
             }
         }
@@ -180,6 +177,7 @@ export default {
         
         }
     }
+
     
 }
 
