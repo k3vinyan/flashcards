@@ -30,13 +30,6 @@ export default {
       const ref = data["!ref"];
       const maxRow = ref[ref.length -1];
   
-
-      
-
-      
-
-     
-
       api.categories.createCategory({ title: payload.fileName }).then( async function(category) {
         for(let i = 1; i < maxRow; i++) {
           const aRow = "A" + i;
