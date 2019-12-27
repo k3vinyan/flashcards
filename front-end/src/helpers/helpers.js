@@ -73,9 +73,6 @@ const categories = {
 }
 
 
-
-
-
 const cards = {
     getCard: async payload => {
         try {

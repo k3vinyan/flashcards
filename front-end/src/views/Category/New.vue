@@ -39,7 +39,7 @@
 
 <script>
 
-import CardForm from '../../components/CForm.vue'
+import CardForm from '../../components/CardForm.vue'
 import { api } from '../../helpers/helpers'
 
 export default {

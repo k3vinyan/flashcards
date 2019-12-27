@@ -15,6 +15,5 @@ const parseExcel =  function(item, callback) {
     reader.readAsArrayBuffer(file);
 }
 
-
 export { parseExcel }  ;
 

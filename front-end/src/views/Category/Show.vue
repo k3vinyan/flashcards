@@ -62,6 +62,7 @@ export default {
             border: solid 1px $secondary-color;
             display: flex;
             flex-direction: column;
+            margin: 0 5px 5px 5px;
             
             p {
                 display: inline-block;

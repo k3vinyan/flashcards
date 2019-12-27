@@ -12,9 +12,6 @@ exports.list_all_cards = (req, res) => {
 exports.create_a_card = (req, res) => {
   Category.findById(req.params.categoryId)
   .then( category => {
-    console.log(req.body.term)
-    console.log(req.body.definition)
-    console.log("---------------------------")
     category.cards.push({
       term: req.body.term,
       definition: req.body.definition
