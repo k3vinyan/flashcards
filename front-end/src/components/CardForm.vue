@@ -1,5 +1,6 @@
 <template>
     <div class="card">
+        <Toolbar @styling="updateStyling" />
         <textarea 
             class="card-term"       
             v-model="card.term"       
@@ -22,8 +23,13 @@
 </template>
 
 <script>
+import Toolbar from './Toolbar'
+
 export default {
     name: 'card-form',
+    components: {
+        Toolbar
+    },
     props: {
         card: {
             type: Object,
@@ -97,9 +103,11 @@ export default {
                     el.style.fontSize = fontSize;
                     el.style.lineHeight = fontSize;
                 }
-            }
-
-                
+            }    
+        },
+        //toolbar
+        updateStyling: function() {
+            console.log(this.card);
         }
     }
 

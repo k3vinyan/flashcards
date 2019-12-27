@@ -16,7 +16,7 @@
         </header>
 
         <div class="template-content">
-           <card-form class="template-content-card-container" @createOrUpdate="createCard" :card="card"></card-form>
+           <card-form class="template-content-card-container" @createOrUpdate="createCard" :card="card" :toolbar="test"></card-form>
              <ul class="template-content-card-list">
                 <template v-if="cardCount === 0">
                     <li class="template-content-card-item-placeholder">
@@ -91,7 +91,11 @@ export default {
         },
         viewShow: function() {
             this.$router.push({ name: 'category-show', params: {id: this.category._id} })
-         }
+        },
+        //toolbar
+        test: function() {
+            console.log("catdog")
+        }
     },
     async mounted() {
         if(this.$route.name === "category-new") {
