@@ -107,7 +107,7 @@ export default {
         },
         //toolbar
         updateStyling: function() {
-            console.log(this.card);
+            
         }
     }
 

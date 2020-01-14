@@ -6,9 +6,15 @@ const CardSchema = new Schema({
         type: String,
         required: 'term is required'
     },
+    termHtmlFormat: {
+        type: String
+    },
     definition: {
         type: String,
         required: 'definition required'
+    },
+    definitonHTMLFormat: {
+        type: String
     }
 }, { collection: 'card' } );
 
