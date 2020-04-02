@@ -19,7 +19,7 @@ Frontend: HTML, CSS, SASS, JavaScript, Vue
 
 ## Server-side
 
-run inline command - 'npm run start'
+- run inline command - 'npm run start'
 
 ## Client-side
 
