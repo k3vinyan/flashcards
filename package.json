@@ -1,5 +1,5 @@
 {
-  "name": "crud",
+  "name": "flashcards",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -17,7 +17,7 @@
     "nodemon": "^1.19.4"
   },
   "scripts": {
-    "start": "serve -s front-end/dist"
+    "start": "node fserver.js"
   },
   "keywords": [],
   "author": "",
