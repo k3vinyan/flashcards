@@ -16,7 +16,7 @@
     "nodemon": "^1.19.4"
   },
   "scripts": {
-    "start": "node fserver.js"
+    "start": "serve -s front-end/dist"
   },
   "keywords": [],
   "author": "",
