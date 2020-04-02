@@ -16,7 +16,7 @@
     "nodemon": "^1.19.4"
   },
   "scripts": {
-    "start:dev": "nodemon server.js",
+    "dev": "nodemon server.js",
     "start": "node fserver.js"
   },
   "keywords": [],
